@@ -6,6 +6,5 @@ License: GPL-3
 Title: DataSHIELD client site stattistical functions
 Description: DataSHIELD client site stattistical functions
 Depends:
-    opal,
     dsBaseClient
 RoxygenNote: 6.1.1
