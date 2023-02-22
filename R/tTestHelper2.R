@@ -28,9 +28,11 @@ tTestHelper2 <- function(formula, CI, datasources) {
     stop(paste0(" ", b, " must be a factor vector!"), call.=FALSE)
   }else{
     # the covariate must have only two categories (as for t.test in R), so stop and throw a message otherwise    
-    cally <- paste0("levels(", b, ")")
-    levels_all <- datashield.aggregate(datasources, as.symbol(cally))
-    classes <- unique(unlist(levels_all))
+    cally <- paste0("levelsDS(", b, ")")
+    # cally <- call("levelsDS", b)
+    levels_all <- datashield.aggregate(datasources, cally)
+    classes_with_status <- unique(unlist(levels_all))
+    classes <- classes_with_status[1:length(classes_with_status)-1]
     if(length(classes) != 2){
       stop(paste0(" ", b, " must two and only two categories!"), call.=FALSE)
     }
