@@ -54,7 +54,7 @@ tTestHelper2 <- function(formula, CI, datasources) {
   iteration.count <- 0
   
   # identify the correct dimension for start beta coeffs by calling the 1st component of glmDS
-  cally1 <- call('glmDS1', formula, family, beta.vect=beta.vect.temp, NULL)
+  cally1 <- call('glmDS1', formula, family, beta.vect.temp, NULL, NULL)
   
   study.summary <- datashield.aggregate(datasources, cally1)
   num.par.glm <- study.summary[[1]][[1]][[2]]
@@ -81,7 +81,7 @@ tTestHelper2 <- function(formula, CI, datasources) {
     iteration.count <- iteration.count+1
     
     # now call second component of glmDS to generate score vectors and informations matrices
-    cally2 <- call('glmDS2', formula, family, beta.vect=beta.vect.temp, NULL, NULL, NULL)
+    cally2 <- call('glmDS2', formula, family, beta.vect.temp, NULL, NULL, NULL)
     
     study.summary <- datashield.aggregate(datasources, cally2)
     
