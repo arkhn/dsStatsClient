@@ -28,9 +28,11 @@ tTestHelper2 <- function(formula, CI, datasources) {
     stop(paste0(" ", b, " must be a factor vector!"), call.=FALSE)
   }else{
     # the covariate must have only two categories (as for t.test in R), so stop and throw a message otherwise    
-    cally <- paste0("levels(", b, ")")
-    levels_all <- datashield.aggregate(datasources, as.symbol(cally))
-    classes <- unique(unlist(levels_all))
+    cally <- paste0("levelsDS(", b, ")")
+    # cally <- call("levelsDS", b)
+    levels_all <- datashield.aggregate(datasources, cally)
+    classes_with_status <- unique(unlist(levels_all))
+    classes <- classes_with_status[1:length(classes_with_status)-1]
     if(length(classes) != 2){
       stop(paste0(" ", b, " must two and only two categories!"), call.=FALSE)
     }
@@ -52,7 +54,7 @@ tTestHelper2 <- function(formula, CI, datasources) {
   iteration.count <- 0
   
   # identify the correct dimension for start beta coeffs by calling the 1st component of glmDS
-  cally1 <- call('glmDS1', formula, family, beta.vect=beta.vect.temp, NULL)
+  cally1 <- call('glmDS1', formula, family, beta.vect.temp, NULL, NULL)
   
   study.summary <- datashield.aggregate(datasources, cally1)
   num.par.glm <- study.summary[[1]][[1]][[2]]
@@ -79,7 +81,7 @@ tTestHelper2 <- function(formula, CI, datasources) {
     iteration.count <- iteration.count+1
     
     # now call second component of glmDS to generate score vectors and informations matrices
-    cally2 <- call('glmDS2', formula, family, beta.vect=beta.vect.temp, NULL, NULL, NULL)
+    cally2 <- call('glmDS2', formula, family, beta.vect.temp, NULL, NULL, NULL)
     
     study.summary <- datashield.aggregate(datasources, cally2)
     
